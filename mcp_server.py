@@ -10,7 +10,7 @@ from typing import Optional
 import httpx
 from mcp.server.fastmcp import FastMCP
 
-BASE = os.environ.get("ACME_URL", "http://127.0.0.1:8080")
+BASE = os.environ.get("ACME_URL", "http://127.0.0.1:8090")
 HEADERS = {"X-Actor": "prospect-agent"}
 if os.environ.get("ACME_API_KEY"):
     HEADERS["X-API-Key"] = os.environ["ACME_API_KEY"]

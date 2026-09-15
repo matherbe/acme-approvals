@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 
 DB = Path(__file__).with_name("acme.db")
 API_KEY = os.environ.get("ACME_API_KEY", "")  # empty = no auth (demo default)
-PORT = int(os.environ.get("ACME_PORT", "8080"))
+PORT = int(os.environ.get("ACME_PORT", "8090"))  # 8080 is often taken on lab VMs
 HOST = os.environ.get("ACME_HOST", "127.0.0.1")  # 0.0.0.0 to reach it from another VM in the environment
 
 app = FastAPI(title="Acme Approvals API", version="1.0.0",

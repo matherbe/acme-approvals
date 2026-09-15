@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "acme-approvals": {
+      "command": "python3",
+      "args": ["mcp_server.py"],
+      "env": { "ACME_URL": "http://127.0.0.1:8080" }
+    }
+  }
+}

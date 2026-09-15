@@ -15,6 +15,8 @@ Everything runs inside the VM on localhost. Nothing leaves the machine except th
 | `install.sh` | One-shot install inside the VM: installs packages, starts the app, adds an at-boot entry. |
 | `run.sh` / `run.ps1` | Install requirements and start the app in the background (Linux and Windows). |
 
+The app listens on port **8090** by default. 8080 is often taken by the lab's own services. Override with `ACME_PORT`, and update `ACME_URL` in `.mcp.json` to match.
+
 ## Install in the VM (Linux)
 
 From a terminal in VS Code, in your home directory:
@@ -33,13 +35,13 @@ Windows: clone to `%USERPROFILE%\acme-approvals`, run `run.ps1`, and change `pyt
 
 ## Seeing the UI
 
-The VM in the demo Template has no desktop; VS Code is served in the browser. That is fine. Open the Command Palette, run **Simple Browser: Show**, and enter `http://localhost:8080/`. It opens as an editor tab inside VS Code. Drag that tab into a second editor group, or right-click the terminal panel header and choose **Move Panel Right**, so the terminal and the UI sit side by side. The UI uses relative URLs, so it works behind the proxy path web VS Code uses for localhost.
+The VM in the demo Template has no desktop; VS Code is served in the browser. That is fine. Open the Command Palette, run **Simple Browser: Show**, and enter `http://localhost:8090/`. It opens as an editor tab inside VS Code. Drag that tab into a second editor group, or right-click the terminal panel header and choose **Move Panel Right**, so the terminal and the UI sit side by side. The UI uses relative URLs, so it works behind the proxy path web VS Code uses for localhost.
 
-Fallback if you have a separate virtual browser VM in the same environment: start the app on the app VM with `ACME_HOST=0.0.0.0 bash ~/acme-approvals/run.sh` and browse to `http://<app VM private IP>:8080/` from the browser VM.
+Fallback if you have a separate virtual browser VM in the same environment: start the app on the app VM with `ACME_HOST=0.0.0.0 bash ~/acme-approvals/run.sh` and browse to `http://<app VM private IP>:8090/` from the browser VM.
 
 ### Optional: give the product its own API key
 
-Set `ACME_API_KEY=some-token` in the environment before starting both the app and Claude Code. The API then requires `X-API-Key`, the MCP server sends it automatically, and the UI reads it from `http://localhost:8080/?key=some-token`. This lets Credential Manager issue the product's key per session alongside the AI key: two credentials, one launch, both scoped to the person.
+Set `ACME_API_KEY=some-token` in the environment before starting both the app and Claude Code. The API then requires `X-API-Key`, the MCP server sends it automatically, and the UI reads it from `http://localhost:8090/?key=some-token`. This lets Credential Manager issue the product's key per session alongside the AI key: two credentials, one launch, both scoped to the person.
 
 ## Demo script
 
@@ -55,8 +57,8 @@ Then send one more prompt after the budget is spent, and the agent stops while t
 
 ## Between takes
 
-`curl -X POST http://localhost:8080/api/reset` puts the demo data back. Or delete `acme.db` and restart the app.
+`curl -X POST http://localhost:8090/api/reset` puts the demo data back. Or delete `acme.db` and restart the app.
 
 ## Notes
 
-Acme Inc, the people and the requests are invented. Amounts are USD. The app listens on 127.0.0.1 by default (`ACME_HOST=0.0.0.0` to expose it inside the environment); change `ACME_PORT` if 8080 is taken.
+Acme Inc, the people and the requests are invented. Amounts are USD. The app listens on 127.0.0.1 by default (`ACME_HOST=0.0.0.0` to expose it inside the environment).
